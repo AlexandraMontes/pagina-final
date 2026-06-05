@@ -1,0 +1,50 @@
+[
+  {
+    "PeliculaID": 1,
+    "Titulo": "Avengers: Endgame",
+    "AnioLanzamiento": 2019,
+    "director": "Anthony y Joe Russo",
+    "actores": "Robert Downey Jr., Chris Evans, Scarlett Johansson",
+    "personajes": "Iron Man, Capitán América, Black Widow"
+  },
+  {
+    "PeliculaID": 2,
+    "Titulo": "Interstellar",
+    "AnioLanzamiento": 2014,
+    "director": "Christopher Nolan",
+    "actores": "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
+    "personajes": "Cooper, Amelia Brand, Murph"
+  },
+  {
+    "PeliculaID": 3,
+    "Titulo": "El Padrino",
+    "AnioLanzamiento": 1972,
+    "director": "Francis Ford Coppola",
+    "actores": "Marlon Brando, Al Pacino, James Caan",
+    "personajes": "Vito Corleone, Michael Corleone, Sonny Corleone"
+  },
+  {
+    "PeliculaID": 4,
+    "Titulo": "Parasite",
+    "AnioLanzamiento": 2019,
+    "director": "Bong Joon-ho",
+    "actores": "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
+    "personajes": "Ki-taek, Park Dong-ik, Yeon-gyo"
+  },
+  {
+    "PeliculaID": 5,
+    "Titulo": "The Dark Knight",
+    "AnioLanzamiento": 2008,
+    "director": "Christopher Nolan",
+    "actores": "Christian Bale, Heath Ledger, Aaron Eckhart",
+    "personajes": "Batman / Bruce Wayne, El Joker, Harvey Dent / Dos Caras"
+  },
+  {
+    "PeliculaID": 6,
+    "Titulo": "Toy Story",
+    "AnioLanzamiento": 1995,
+    "director": "John Lasseter",
+    "actores": "Tom Hanks, Tim Allen, Don Rickles",
+    "personajes": "Woody, Buzz Lightyear, Sr. Cara de Papa"
+  }
+]

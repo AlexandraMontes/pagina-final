@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 2: Carrito de Compras | Proyecto Final API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="Css/style.css">
+    <style>
+        .product-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .product-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateY(-2px);
+        }
+        .product-img {
+            height: 150px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .product-body {
+            padding: 15px;
+        }
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .product-price {
+            font-size: 18px;
+            color: #c084fc;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+            padding: 12px 0;
+        }
+        .cart-item-title {
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .cart-item-meta {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .cart-item-price {
+            color: #c084fc;
+            font-weight: 600;
+        }
+        .btn-qty {
+            background: rgba(139, 92, 246, 0.2);
+            border: none;
+            color: #c084fc;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-qty:hover {
+            background: #8b5cf6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Inicio
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <!-- UNIDAD 1 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 1 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="meter_datos.html">Práctica 1: Meter Datos</a></li>
+                    <li><a href="mostrar_datos.html">Práctica 2: Mostrar Datos</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 2 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 2 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="relaciones.html">Práctica 1: Relaciones</a></li>
+                    <li><a href="practica2.html">Práctica 2: Tablero Kanban</a></li>
+                    <li><a href="practica3.html">Práctica 3: Carrito de Compras</a></li>
+                    <li><a href="capturar_relacionados.html">Práctica 4: Pasar Datos Relacionados</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 3 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 3 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="pokedex.html">Pokémon</a></li>
+                    <li><a href="peliculas.html">Películas</a></li>
+                    <li><a href="Viajes.html">Viajes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container principal">
+    <div class="row">
+        <!-- Catálogo de Productos -->
+        <div class="col-md-7">
+            <div class="glass-panel">
+                <h2 class="panel-title" style="margin-top: 0; margin-bottom: 25px;">Catálogo de Productos Tech</h2>
+                <div class="row" id="productCatalog">
+                    <!-- Inyectado dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Carrito de Compras -->
+        <div class="col-md-5">
+            <div class="glass-panel" style="padding: 20px !important;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 class="panel-title" style="margin: 0;">Carrito de Compras</h3>
+                    <button onclick="clearCart()" class="btn-action btn-danger-custom" style="padding: 6px 12px; font-size: 12px;" id="btnClearCart">
+                        Vaciar
+                    </button>
+                </div>
+
+                <div id="cartContents" style="min-height: 200px;">
+                    <!-- Inyectado dinámicamente -->
+                </div>
+
+                <!-- Resumen de Costos -->
+                <div style="border-top: 1px solid rgba(139, 92, 246, 0.3); padding-top: 15px; margin-top: 15px;" id="cartSummary">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; color: #94a3b8;">
+                        <span>Subtotal:</span>
+                        <span id="cartSubtotal">$0.00 MXN</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; color: #94a3b8;">
+                        <span>IVA (16%):</span>
+                        <span id="cartIva">$0.00 MXN</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 20px;">
+                        <span>Total:</span>
+                        <span id="cartTotal" style="color: #c084fc;">$0.00 MXN</span>
+                    </div>
+                    <button onclick="checkout()" class="btn-card">
+                        Proceder al Pago
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Proyecto Final de APIs. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    // Lista de productos
+    const products = [
+        { id: 101, name: "Audífonos Gamer Wireless Pro", price: 1899, stock: 8, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop" },
+        { id: 102, name: "Teclado Mecánico RGB Blue Switch", price: 2499, stock: 5, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop" },
+        { id: 103, name: "Mouse Óptico Ergonómico Gamer", price: 1199, stock: 12, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop" },
+        { id: 104, name: "Monitor Curvo Full HD 27 Pulgadas", price: 4599, stock: 3, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop" }
+    ];
+
+    // Carrito de compras (cargado de localStorage si existe)
+    let cart = JSON.parse(localStorage.getItem("active-cart")) || [];
+
+    document.addEventListener("DOMContentLoaded", () => {
+        renderCatalog();
+        renderCart();
+    });
+
+    // Renderizar catálogo
+    function renderCatalog() {
+        const catalog = document.getElementById("productCatalog");
+        catalog.innerHTML = products.map(prod => `
+            <div class="col-sm-6">
+                <div class="product-card">
+                    <img src="${prod.img}" class="product-img" alt="${prod.name}">
+                    <div class="product-body">
+                        <h4 class="product-title">${prod.name}</h4>
+                        <div class="product-price">$${prod.price.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN</div>
+                        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Stock disponible: <strong id="stock-${prod.id}">${prod.stock}</strong> u.</p>
+                        <button onclick="addToCart(${prod.id})" class="btn-card" style="padding: 8px 15px; font-size: 13px;">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join("");
+    }
+
+    // Agregar al Carrito
+    function addToCart(id) {
+        const prod = products.find(p => p.id === id);
+        if (!prod) return;
+
+        // Comprobar si ya está en el carrito
+        const cartItem = cart.find(item => item.id === id);
+        
+        if (cartItem) {
+            if (cartItem.qty >= prod.stock) {
+                alert(`⚠️ Stock máximo alcanzado (${prod.stock} piezas) para ${prod.name}`);
+                return;
+            }
+            cartItem.qty++;
+        } else {
+            cart.push({
+                id: prod.id,
+                name: prod.name,
+                price: prod.price,
+                qty: 1
+            });
+        }
+
+        renderCart();
+    }
+
+    // Cambiar cantidad
+    function updateQty(id, change) {
+        const item = cart.find(item => item.id === id);
+        if (!item) return;
+
+        const prod = products.find(p => p.id === id);
+
+        item.qty += change;
+
+        if (item.qty <= 0) {
+            cart = cart.filter(i => i.id !== id);
+        } else if (item.qty > prod.stock) {
+            alert(`⚠️ Solo hay ${prod.stock} unidades en stock.`);
+            item.qty = prod.stock;
+        }
+
+        renderCart();
+    }
+
+    // Eliminar artículo
+    function removeItem(id) {
+        cart = cart.filter(item => item.id !== id);
+        renderCart();
+    }
+
+    // Vaciar
+    function clearCart() {
+        cart = [];
+        renderCart();
+    }
+
+    // Renderizar Carrito
+    function renderCart() {
+        const contents = document.getElementById("cartContents");
+        const summary = document.getElementById("cartSummary");
+        const btnClear = document.getElementById("btnClearCart");
+
+        if (cart.length === 0) {
+            contents.innerHTML = `
+                <div style="text-align: center; color: #64748b; padding: 40px 0;">
+                    <p style="font-size: 35px; margin-bottom: 10px;">🛒</p>
+                    <p>El carrito de compras está vacío.</p>
+                </div>
+            `;
+            summary.style.display = "none";
+            btnClear.style.display = "none";
+            localStorage.setItem("active-cart", JSON.stringify(cart));
+            return;
+        }
+
+        summary.style.display = "block";
+        btnClear.style.display = "inline-block";
+
+        let subtotal = 0;
+
+        contents.innerHTML = cart.map(item => {
+            const itemTotal = item.price * item.qty;
+            subtotal += itemTotal;
+            return `
+                <div class="cart-item">
+                    <div style="flex-grow: 1; padding-right: 15px;">
+                        <span class="cart-item-title">${item.name}</span>
+                        <div class="cart-item-meta">
+                            $${item.price.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN c/u
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-right: 15px;">
+                        <button onclick="updateQty(${item.id}, -1)" class="btn-qty">-</button>
+                        <span style="color: #ffffff; font-weight: 600; min-width: 20px; text-align: center;">${item.qty}</span>
+                        <button onclick="updateQty(${item.id}, 1)" class="btn-qty">+</button>
+                    </div>
+                    <div style="text-align: right; min-width: 90px;">
+                        <span class="cart-item-price">$${itemTotal.toLocaleString('es-MX', {minimumFractionDigits: 2})}</span>
+                        <div style="margin-top: 4px;">
+                            <a href="#" onclick="removeItem(${item.id})" style="color: #f87171; font-size: 11px; text-decoration: none;">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        // Totales
+        const iva = subtotal * 0.16;
+        const total = subtotal + iva;
+
+        document.getElementById("cartSubtotal").innerText = `$${subtotal.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN`;
+        document.getElementById("cartIva").innerText = `$${iva.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN`;
+        document.getElementById("cartTotal").innerText = `$${total.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN`;
+
+        localStorage.setItem("active-cart", JSON.stringify(cart));
+    }
+
+    // Checkout
+    function checkout() {
+        alert("🎉 ¡Pago realizado con éxito! Gracias por tu compra simulada en esta práctica.");
+        cart = [];
+        renderCart();
+    }
+</script>
+</body>
+</html>

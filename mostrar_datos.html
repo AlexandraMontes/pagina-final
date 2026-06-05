@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 1: Mostrar Datos | Proyecto Final API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="Css/style.css">
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Inicio
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <!-- UNIDAD 1 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 1 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="meter_datos.html">Práctica 1: Meter Datos</a></li>
+                    <li><a href="mostrar_datos.html">Práctica 2: Mostrar Datos</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 2 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 2 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="relaciones.html">Práctica 1: Relaciones</a></li>
+                    <li><a href="practica2.html">Práctica 2: Tablero Kanban</a></li>
+                    <li><a href="practica3.html">Práctica 3: Carrito de Compras</a></li>
+                    <li><a href="capturar_relacionados.html">Práctica 4: Pasar Datos Relacionados</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 3 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 3 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="pokedex.html">Pokémon</a></li>
+                    <li><a href="peliculas.html">Películas</a></li>
+                    <li><a href="Viajes.html">Viajes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container principal">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="glass-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 25px; gap: 15px;">
+                    <h2 class="panel-title" style="margin: 0;">Unidad 1 - Práctica 2: Base de Datos Local de Usuarios</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="meter_datos.html" class="btn-card" style="width: auto; padding: 10px 20px; text-decoration: none;">
+                            + Agregar Nuevo Usuario
+                        </a>
+                        <button onclick="borrarTodos()" class="btn-action btn-danger-custom" id="btnBorrarTodos">
+                            Borrar Todo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Buscador -->
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-md-6">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <input type="text" class="form-control" id="buscador" onkeyup="filtrarUsuarios()" placeholder="🔍 Buscar por nombre, email o rol...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Alerta -->
+                <div id="alertContainer"></div>
+
+                <!-- Tabla de datos -->
+                <div class="table-responsive">
+                    <table class="custom-table" id="tablaUsuarios">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Rol / Ocupación</th>
+                                <th>Fecha Registro</th>
+                                <th style="text-align: center;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaUsuarios">
+                            <!-- Inyectado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mensaje cuando no hay registros -->
+                <div id="noDataMessage" style="display: none; text-align: center; padding: 40px; color: #94a3b8;">
+                    <p style="font-size: 18px; margin-bottom: 15px;">⚠️ No hay usuarios registrados en el sistema.</p>
+                    <a href="meter_datos.html" class="btn-card" style="width: auto; padding: 10px 25px; text-decoration: none; display: inline-block;">
+                        Registrar el Primero
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Proyecto Final de APIs. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    // Cargar y renderizar usuarios al iniciar
+    document.addEventListener("DOMContentLoaded", renderUsuarios);
+
+    function renderUsuarios() {
+        const lista = document.getElementById("listaUsuarios");
+        const noData = document.getElementById("noDataMessage");
+        const tabla = document.getElementById("tablaUsuarios");
+        const btnBorrar = document.getElementById("btnBorrarTodos");
+        
+        // Obtener usuarios
+        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+        // Si no hay usuarios
+        if (usuarios.length === 0) {
+            lista.innerHTML = "";
+            tabla.style.display = "none";
+            noData.style.display = "block";
+            btnBorrar.style.display = "none";
+            return;
+        }
+
+        // Si hay usuarios
+        tabla.style.display = "table";
+        noData.style.display = "none";
+        btnBorrar.style.display = "inline-block";
+
+        lista.innerHTML = usuarios.map(usr => `
+            <tr id="tr-${usr.id}">
+                <td style="font-weight: 600; color: #ffffff;">${usr.nombre}</td>
+                <td>${usr.email}</td>
+                <td>${usr.telefono}</td>
+                <td>
+                    <span style="background: rgba(139, 92, 246, 0.2); color: #c084fc; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600;">
+                        ${usr.rol}
+                    </span>
+                </td>
+                <td>${usr.fecha}</td>
+                <td style="text-align: center;">
+                    <button onclick="eliminarUsuario(${usr.id}, '${usr.nombre}')" class="btn-action btn-danger-custom" style="padding: 6px 12px; font-size: 12px;">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        `).join("");
+    }
+
+    // Filtrar usuarios
+    function filtrarUsuarios() {
+        const query = document.getElementById("buscador").value.toLowerCase();
+        const filas = document.querySelectorAll("#listaUsuarios tr");
+
+        filas.forEach(fila => {
+            const contenido = fila.textContent.toLowerCase();
+            if (contenido.includes(query)) {
+                fila.style.display = "";
+            } else {
+                fila.style.display = "none";
+            }
+        });
+    }
+
+    // Eliminar usuario individual
+    function eliminarUsuario(id, nombre) {
+        if (!confirm(`¿Estás seguro de que deseas eliminar al usuario "${nombre}"?`)) {
+            return;
+        }
+
+        let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+        usuarios = usuarios.filter(usr => usr.id !== id);
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+        renderUsuarios();
+
+        // Alerta temporal
+        const alertContainer = document.getElementById("alertContainer");
+        alertContainer.innerHTML = `
+            <div class="alert-glass alert-glass-danger" role="alert">
+                El usuario <strong>${nombre}</strong> fue eliminado correctamente.
+            </div>
+        `;
+        setTimeout(() => { alertContainer.innerHTML = ""; }, 3000);
+    }
+
+    // Borrar todos
+    function borrarTodos() {
+        if (!confirm("⚠️ ¿Estás seguro de que deseas eliminar TODOS los usuarios? Esta acción no se puede deshacer.")) {
+            return;
+        }
+
+        localStorage.removeItem("usuarios");
+        renderUsuarios();
+
+        const alertContainer = document.getElementById("alertContainer");
+        alertContainer.innerHTML = `
+            <div class="alert-glass alert-glass-danger" role="alert">
+                Se eliminaron todos los registros de usuarios de la base de datos local.
+            </div>
+        `;
+        setTimeout(() => { alertContainer.innerHTML = ""; }, 3000);
+    }
+</script>
+</body>
+</html>

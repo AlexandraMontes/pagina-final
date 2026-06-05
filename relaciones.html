@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 2: Relaciones | Proyecto Final API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="Css/style.css">
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Inicio
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <!-- UNIDAD 1 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 1 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="meter_datos.html">Práctica 1: Meter Datos</a></li>
+                    <li><a href="mostrar_datos.html">Práctica 2: Mostrar Datos</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 2 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 2 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="relaciones.html">Práctica 1: Relaciones</a></li>
+                    <li><a href="practica2.html">Práctica 2: Tablero Kanban</a></li>
+                    <li><a href="practica3.html">Práctica 3: Carrito de Compras</a></li>
+                    <li><a href="capturar_relacionados.html">Práctica 4: Pasar Datos Relacionados</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 3 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 3 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="pokedex.html">Pokémon</a></li>
+                    <li><a href="peliculas.html">Películas</a></li>
+                    <li><a href="Viajes.html">Viajes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container principal">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="glass-panel">
+                <h2 class="panel-title" style="margin-bottom: 10px;">Unidad 2 - Práctica 1: Relaciones de Entidades (1:N)</h2>
+                <p style="color: #94a3b8; margin-bottom: 30px;">
+                    Ejemplo de relaciones Uno a Muchos (1:N). Selecciona un Departamento en la barra lateral para ver 
+                    los empleados relacionados a esa división en tiempo real.
+                </p>
+
+                <div class="row">
+                    <!-- Categorías / Departamentos -->
+                    <div class="col-md-4" style="margin-bottom: 20px;">
+                        <h3 style="color: #ffffff; font-size: 18px; font-weight: 600; margin-bottom: 15px;">Departamentos</h3>
+                        <div class="relationship-sidebar">
+                            <a href="#" class="relation-item active" onclick="cambiarDepartamento('ti', this)">
+                                💻 Tecnologías de la Información (TI)
+                            </a>
+                            <a href="#" class="relation-item" onclick="cambiarDepartamento('ventas', this)">
+                                📈 Ventas y Cuentas
+                            </a>
+                            <a href="#" class="relation-item" onclick="cambiarDepartamento('rrhh', this)">
+                                🤝 Recursos Humanos
+                            </a>
+                            <a href="#" class="relation-item" onclick="cambiarDepartamento('mkt', this)">
+                                🎨 Marketing y Diseño
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Empleados Relacionados -->
+                    <div class="col-md-8">
+                        <h3 style="color: #ffffff; font-size: 18px; font-weight: 600; margin-bottom: 15px;">
+                            Empleados Relacionados (<span id="depNombre">TI</span>)
+                        </h3>
+                        <div class="relation-details" id="contenedorEmpleados">
+                            <!-- Inyectado dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Proyecto Final de APIs. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    // Datos de la relación (Departamentos -> Empleados)
+    const datosRelacionados = {
+        ti: {
+            nombre: "Tecnologías de la Información",
+            empleados: [
+                { nombre: "Elena Rostova", rol: "Directora de Tecnología", avatar: "💻", email: "elena.tech@empresa.com", exp: "8 años" },
+                { nombre: "Lucas Silva", rol: "Desarrollador Full Stack Senior", avatar: "⚙️", email: "lucas.dev@empresa.com", exp: "5 años" },
+                { nombre: "Anya Chen", rol: "Administradora de Sistemas & Cloud", avatar: "🛡️", email: "anya.ops@empresa.com", exp: "4 años" }
+            ]
+        },
+        ventas: {
+            nombre: "Ventas y Cuentas",
+            empleados: [
+                { nombre: "Mateo Díaz", rol: "Gerente Comercial", avatar: "📈", email: "mateo.sales@empresa.com", exp: "6 años" },
+                { nombre: "Sofía Rossi", rol: "Ejecutiva de Cuentas Key Account", avatar: "📞", email: "sofia.accounts@empresa.com", exp: "3 años" }
+            ]
+        },
+        rrhh: {
+            nombre: "Recursos Humanos",
+            empleados: [
+                { nombre: "Clara López", rol: "Jefe de Talento Humano", avatar: "🤝", email: "clara.hr@empresa.com", exp: "7 años" },
+                { nombre: "Alex Mendieta", rol: "Especialista en Reclutamiento", avatar: "🔍", email: "alex.recruiter@empresa.com", exp: "2 años" }
+            ]
+        },
+        mkt: {
+            nombre: "Marketing y Diseño",
+            empleados: [
+                { nombre: "Juliana Vélez", rol: "Directora Creativa", avatar: "🎨", email: "juliana.creative@empresa.com", exp: "9 años" },
+                { nombre: "Leo Messi", rol: "Especialista de Growth SEO & ADS", avatar: "🚀", email: "leo.marketing@empresa.com", exp: "4 años" }
+            ]
+        }
+    };
+
+    // Renderizar departamento por defecto (TI) al cargar
+    document.addEventListener("DOMContentLoaded", () => {
+        cambiarDepartamento('ti', document.querySelector('.relation-item.active'));
+    });
+
+    function cambiarDepartamento(id, element) {
+        // Cambiar pestaña activa
+        document.querySelectorAll('.relation-item').forEach(item => item.classList.remove('active'));
+        element.classList.add('active');
+
+        // Obtener datos
+        const depto = datosRelacionados[id];
+        
+        // Actualizar título
+        document.getElementById("depNombre").innerText = depto.nombre;
+
+        // Renderizar empleados
+        const contenedor = document.getElementById("contenedorEmpleados");
+        contenedor.innerHTML = depto.empleados.map(emp => `
+            <div class="relation-card">
+                <div class="relation-avatar">
+                    ${emp.avatar}
+                </div>
+                <div class="relation-info" style="flex-grow: 1;">
+                    <h4>${emp.nombre}</h4>
+                    <p style="color: #c084fc; font-weight: 500;">${emp.rol}</p>
+                    <p style="color: #64748b; font-size: 12px; margin-top: 4px;">✉️ ${emp.email} | ⏳ Exp: ${emp.exp}</p>
+                </div>
+            </div>
+        `).join("");
+    }
+</script>
+</body>
+</html>

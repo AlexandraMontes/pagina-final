@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 2: Factura Recibida | Proyecto Final API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="Css/style.css">
+    <style>
+        .invoice-box {
+            background: #ffffff;
+            color: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 1px solid #e2e8f0;
+        }
+        .invoice-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #8b5cf6;
+            letter-spacing: -0.5px;
+        }
+        .invoice-meta-label {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+        .invoice-meta-val {
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .invoice-divider {
+            border-top: 2px solid #f1f5f9;
+            margin: 25px 0;
+        }
+        .invoice-table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        .invoice-table th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 700;
+            padding: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .invoice-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+        }
+        .invoice-totals {
+            width: 300px;
+            margin-left: auto;
+        }
+        .invoice-totals-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+        .invoice-totals-row.grand-total {
+            font-size: 20px;
+            font-weight: 800;
+            color: #8b5cf6;
+            border-bottom: none;
+            padding-top: 12px;
+        }
+
+        /* Estilo de Impresión */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            .navbar, footer, .no-print {
+                display: none !important;
+            }
+            .principal {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+            .invoice-box {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default no-print">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Inicio
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <!-- UNIDAD 1 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 1 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="meter_datos.html">Práctica 1: Meter Datos</a></li>
+                    <li><a href="mostrar_datos.html">Práctica 2: Mostrar Datos</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 2 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 2 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="relaciones.html">Práctica 1: Relaciones</a></li>
+                    <li><a href="practica2.html">Práctica 2: Tablero Kanban</a></li>
+                    <li><a href="practica3.html">Práctica 3: Carrito de Compras</a></li>
+                    <li><a href="capturar_relacionados.html">Práctica 4: Pasar Datos Relacionados</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 3 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 3 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="pokedex.html">Pokémon</a></li>
+                    <li><a href="peliculas.html">Películas</a></li>
+                    <li><a href="Viajes.html">Viajes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container principal">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            
+            <!-- Acciones fuera de factura -->
+            <div class="no-print" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <a href="capturar_relacionados.html" style="color: #c084fc; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                    ⬅ Regresar a Capturar Datos
+                </a>
+                <button onclick="window.print()" class="btn-card" style="width: auto; padding: 10px 25px;">
+                    🖨️ Imprimir Factura / Guardar PDF
+                </button>
+            </div>
+
+            <!-- Error de carga -->
+            <div id="errorPanel" class="glass-panel" style="display: none; text-align: center; padding: 40px;">
+                <h3 style="color: #f87171;">⚠️ No se encontraron datos de facturación</h3>
+                <p style="color: #94a3b8; margin: 15px 0 25px 0;">Debes ingresar los datos en el formulario de la Práctica 4 antes de ingresar a esta página.</p>
+                <a href="capturar_relacionados.html" class="btn-card" style="width: auto; padding: 10px 25px; text-decoration: none; display: inline-block;">
+                    Ir a Captura de Datos
+                </a>
+            </div>
+
+            <!-- Factura imprimible -->
+            <div class="invoice-box" id="facturaPanel">
+                <div class="row">
+                    <!-- Logo / Emisor -->
+                    <div class="col-xs-6">
+                        <div class="invoice-title">API Solutions</div>
+                        <p style="margin-top: 10px; font-size: 13px; color: #64748b;">
+                            <strong>API Solutions S.A. de C.V.</strong><br>
+                            RFC: APS120405H43<br>
+                            Av. Paseo de la Reforma 456, Piso 12<br>
+                            Col. Juárez, Del. Cuauhtémoc, CDMX, 06600
+                        </p>
+                    </div>
+
+                    <!-- Datos Folio / Factura -->
+                    <div class="col-xs-6" style="text-align: right;">
+                        <h2 style="font-size: 24px; font-weight: 700; color: #0f172a; margin-top: 0;">FACTURA</h2>
+                        <div style="margin-top: 15px;">
+                            <span class="invoice-meta-label">Folio:</span>
+                            <span class="invoice-meta-val" id="facFolio">FAC-000000</span>
+                        </div>
+                        <div>
+                            <span class="invoice-meta-label">Fecha:</span>
+                            <span class="invoice-meta-val" id="facFecha">00/00/0000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="invoice-divider"></div>
+
+                <!-- Receptor / Cliente -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span class="invoice-meta-label" style="display: block; margin-bottom: 8px;">Facturado a:</span>
+                        <h4 style="font-weight: 700; color: #0f172a; margin: 0 0 5px 0;" id="clientName">Nombre del Cliente</h4>
+                        <p style="font-size: 13px; color: #475569; margin: 0;">
+                            <strong>RFC:</strong> <span id="clientRfc">XXXX000000XXX</span><br>
+                            <strong>Dirección:</strong> <span id="clientAddress">Dirección del Cliente</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="invoice-divider"></div>
+
+                <!-- Detalles (Hijos) -->
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Descripción del Producto / Servicio</th>
+                            <th style="text-align: center; width: 100px;">Cantidad</th>
+                            <th style="text-align: right; width: 120px;">Precio Unit.</th>
+                            <th style="text-align: right; width: 120px;">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceItems">
+                        <!-- Inyectado dinámicamente -->
+                    </tbody>
+                </table>
+
+                <div class="invoice-divider"></div>
+
+                <!-- Totales -->
+                <div class="invoice-totals">
+                    <div class="invoice-totals-row">
+                        <span>Subtotal:</span>
+                        <span id="facSubtotal">$0.00</span>
+                    </div>
+                    <div class="invoice-totals-row">
+                        <span>IVA (16%):</span>
+                        <span id="facIva">$0.00</span>
+                    </div>
+                    <div class="invoice-totals-row grand-total">
+                        <span>Total:</span>
+                        <span id="facTotal">$0.00</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="no-print">
+    <div class="container">
+        <p>&copy; 2026 Proyecto Final de APIs. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Cargar datos de factura
+        const rawDatos = sessionStorage.getItem("factura-datos");
+        
+        const errorPanel = document.getElementById("errorPanel");
+        const facturaPanel = document.getElementById("facturaPanel");
+
+        if (!rawDatos) {
+            errorPanel.style.display = "block";
+            facturaPanel.style.display = "none";
+            return;
+        }
+
+        // Si existen datos
+        errorPanel.style.display = "none";
+        facturaPanel.style.display = "block";
+
+        const datos = JSON.parse(rawDatos);
+
+        // Renderizar datos del encabezado
+        document.getElementById("facFolio").innerText = datos.folio;
+        document.getElementById("facFecha").innerText = datos.fecha;
+
+        // Renderizar datos de cliente
+        document.getElementById("clientName").innerText = datos.cliente.nombre;
+        document.getElementById("clientRfc").innerText = datos.cliente.rfc;
+        document.getElementById("clientAddress").innerText = datos.cliente.direccion;
+
+        // Renderizar productos y calcular totales
+        const tbody = document.getElementById("invoiceItems");
+        let subtotal = 0;
+
+        tbody.innerHTML = datos.productos.map(item => {
+            const importe = item.qty * item.price;
+            subtotal += importe;
+            return `
+                <tr>
+                    <td style="font-weight: 600;">${item.name}</td>
+                    <td style="text-align: center;">${item.qty}</td>
+                    <td style="text-align: right;">$${item.price.toLocaleString('es-MX', {minimumFractionDigits: 2})}</td>
+                    <td style="text-align: right; font-weight: 700;">$${importe.toLocaleString('es-MX', {minimumFractionDigits: 2})}</td>
+                </tr>
+            `;
+        }).join("");
+
+        // Calcular IVA y Total
+        const iva = subtotal * 0.16;
+        const total = subtotal + iva;
+
+        document.getElementById("facSubtotal").innerText = `$${subtotal.toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+        document.getElementById("facIva").innerText = `$${iva.toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+        document.getElementById("facTotal").innerText = `$${total.toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+    });
+</script>
+</body>
+</html>

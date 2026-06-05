@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 1: Meter Datos | Proyecto Final API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="Css/style.css">
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Inicio
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <!-- UNIDAD 1 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 1 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="meter_datos.html">Práctica 1: Meter Datos</a></li>
+                    <li><a href="mostrar_datos.html">Práctica 2: Mostrar Datos</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 2 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 2 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="relaciones.html">Práctica 1: Relaciones</a></li>
+                    <li><a href="practica2.html">Práctica 2: Tablero Kanban</a></li>
+                    <li><a href="practica3.html">Práctica 3: Carrito de Compras</a></li>
+                    <li><a href="capturar_relacionados.html">Práctica 4: Pasar Datos Relacionados</a></li>
+                </ul>
+            </li>
+            <!-- UNIDAD 3 -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Unidad 3 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="pokedex.html">Pokémon</a></li>
+                    <li><a href="peliculas.html">Películas</a></li>
+                    <li><a href="Viajes.html">Viajes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container principal">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="glass-panel">
+                <h2 class="panel-title">Unidad 1 - Práctica 1: Registro de Usuarios</h2>
+                <p style="color: #94a3b8; margin-bottom: 20px;">
+                    Completa el formulario para registrar un nuevo usuario en la base de datos local (LocalStorage). 
+                    Posteriormente podrás ver todos los registros en la pestaña de "Mostrar Datos".
+                </p>
+                
+                <!-- Alertas -->
+                <div id="alertContainer"></div>
+
+                <form id="registroForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ej. Juan Pérez" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" placeholder="Ej. juan@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" placeholder="Ej. 5512345678" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rol">Ocupación / Rol</label>
+                        <select class="form-control" id="rol" required>
+                            <option value="" disabled selected>Selecciona un rol...</option>
+                            <option value="Estudiante">Estudiante</option>
+                            <option value="Docente">Docente</option>
+                            <option value="Desarrollador">Desarrollador</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Diseñador">Diseñador</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <button type="submit" class="btn-card" style="width: auto; padding: 12px 30px;">
+                            Registrar Usuario
+                        </button>
+                        <a href="mostrar_datos.html" class="btn-action btn-primary-custom" style="padding: 14px 25px; border-radius: 12px; text-decoration: none; text-align: center;">
+                            Ver Lista de Usuarios
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Proyecto Final de APIs. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("registroForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        
+        // Obtener valores
+        const nombre = document.getElementById("nombre").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const rol = document.getElementById("rol").value;
+
+        // Crear objeto usuario
+        const nuevoUsuario = {
+            id: Date.now(),
+            nombre: nombre,
+            email: email,
+            telefono: telefono,
+            rol: rol,
+            fecha: new Date().toLocaleDateString()
+        };
+
+        try {
+            // Cargar existentes
+            let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            
+            // Añadir el nuevo
+            usuarios.push(nuevoUsuario);
+            
+            // Guardar de vuelta
+            localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+            // Mostrar Alerta de Éxito
+            const alertContainer = document.getElementById("alertContainer");
+            alertContainer.innerHTML = `
+                <div class="alert-glass alert-glass-success" role="alert">
+                    <strong>¡Registro Exitoso!</strong> El usuario ${nombre} ha sido guardado correctamente.
+                </div>
+            `;
+
+            // Limpiar formulario
+            document.getElementById("registroForm").reset();
+
+            // Quitar alerta después de 4 segundos
+            setTimeout(() => {
+                alertContainer.innerHTML = "";
+            }, 4000);
+
+        } catch (error) {
+            // Mostrar Alerta de Error
+            const alertContainer = document.getElementById("alertContainer");
+            alertContainer.innerHTML = `
+                <div class="alert-glass alert-glass-danger" role="alert">
+                    <strong>Error:</strong> No se pudo guardar el registro. Inténtalo de nuevo.
+                </div>
+            `;
+        }
+    });
+</script>
+</body>
+</html>

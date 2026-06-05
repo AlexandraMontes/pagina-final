@@ -1,0 +1,163 @@
+body{
+    margin:0;
+    padding:0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ===== TITULO ===== */
+
+h1{
+    text-align:center;
+    color:white;
+    margin-top:30px;
+    font-size:2.2rem;
+    text-shadow:2px 2px 10px rgba(0,0,0,0.4);
+}
+
+/* ===== BOTON INICIO ===== */
+
+.inicio-btn{
+    position:absolute;
+    top:20px;
+    left:20px;
+    background:#7e22ce;
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.inicio-btn:hover{
+    background:#9333ea;
+    transform:scale(1.05);
+}
+
+/* ===== IMAGEN DECORATIVA ===== */
+
+body > img:first-of-type{
+    display:block;
+    margin:20px auto;
+}
+
+/* ===== INPUT ===== */
+
+.placeholder{
+    display:block;
+    margin:20px auto;
+    width:250px;
+    height:45px;
+    border:none;
+    border-radius:12px;
+    text-align:center;
+    font-size:18px;
+    background:#fff;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===== IMAGEN DEL POKEMON ===== */
+
+.pokeimg{
+    display:block;
+    margin:20px auto;
+    width:250px;
+    height:250px;
+    object-fit:contain;
+    background:white;
+    border-radius:20px;
+    padding:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+}
+
+/* ===== INFORMACION ===== */
+
+.pokeimg1{
+    width:320px;
+    margin:8px auto;
+    text-align:center;
+    color:white;
+    font-size:18px;
+    font-weight:500;
+    position:static !important;
+}
+
+/* ===== BOTON BUSCAR ===== */
+
+.boton{
+    display:block;
+    margin:20px auto;
+    width:180px;
+    height:50px;
+    border:none;
+    border-radius:15px;
+    background:#ffcb05;
+    color:#2a75bb;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+
+.boton:hover{
+    transform:translateY(-3px);
+    background:#ffd93d;
+}
+
+/* ===== ID Y ORDEN ===== */
+
+#pokeid,
+#pokeorder{
+    text-align:center;
+    color:white !important;
+    font-size:22px !important;
+    position:static !important;
+}
+
+/* ===== GRAFICA ===== */
+
+.grafica{
+    width:80%;
+    max-width:800px;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
+
+#miCanvas{
+    width:100% !important;
+    height:400px !important;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:768px){
+
+    h1{
+        font-size:1.5rem;
+    }
+
+    .placeholder{
+        width:80%;
+    }
+
+    .pokeimg{
+        width:200px;
+        height:200px;
+    }
+
+    .pokeimg1{
+        width:90%;
+        font-size:16px;
+    }
+
+    .grafica{
+        width:95%;
+    }
+}

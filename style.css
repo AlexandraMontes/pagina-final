@@ -1,0 +1,64 @@
+/* FONDO */
+body{
+    background: linear-gradient(135deg, #c7d2fe, #ddd6fe, #fbcfe8) !important;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar{
+    background: #a5b4fc !important;
+    border: none !important;
+}
+
+.navbar-brand,
+.navbar-nav li a{
+    color: white !important;
+    font-weight: bold;
+}
+
+.navbar-brand:hover,
+.navbar-nav li a:hover{
+    color: #ede9fe !important;
+}
+
+/* MENÚ DESPLEGABLE */
+.dropdown-menu{
+    background: #ddd6fe !important;
+}
+
+.dropdown-menu li a{
+    color: #4338ca !important;
+}
+
+.dropdown-menu li a:hover{
+    background: #c4b5fd !important;
+}
+
+/* CAJA PRINCIPAL */
+.jumbotron{
+    background: rgba(255,255,255,0.9) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15) !important;
+    margin-top: 40px;
+}
+
+/* TÍTULO */
+.jumbotron h1{
+    color: #6d28d9 !important;
+    font-weight: bold;
+}
+
+/* TEXTOS */
+.jumbotron p,
+.jumbotron .lead{
+    color: #334155 !important;
+}
+
+/* EFECTO HOVER */
+.navbar-nav li a{
+    transition: 0.3s;
+}
+
+.navbar-nav li a:hover{
+    transform: translateY(-2px);
+}

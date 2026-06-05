@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "nombre_real": "Kim Namjoon",
+    "personaje": "RM (Rap Monster)",
+    "Altura": 181,
+    "Peso": 67,
+    "Poderes": "Liderazgo carismático, Rap lírico, Producción musical",
+    "Sexo": "M",
+    "Debilidad": "Extrema torpeza en la vida cotidiana (rompe todo lo que toca)",
+    "Creacion": "2013-06-13",
+    "Biografia": "Kim Namjoon, conocido como RM, es el líder de BTS. Nació el 12 de septiembre de 1994 en Ilsan, Corea del Sur. Es el principal rapero y uno de los compositores más prolíficos del grupo. Autodidacta del inglés gracias a la serie Friends, también es un ávido coleccionista de arte contemporáneo.",
+    "imagen": "nam3.jpg"
+  },
+  {
+    "id": 2,
+    "nombre_real": "Kim Seokjin",
+    "personaje": "Jin (Worldwide Handsome)",
+    "Altura": 179,
+    "Peso": 63,
+    "Poderes": "Voz tenor poderosa, Carisma escénico, Cocina excepcional",
+    "Sexo": "M",
+    "Debilidad": "Sus propios chistes (que solo él ríe)",
+    "Creacion": "2013-06-13",
+    "Biografia": "Kim Seokjin, conocido como Jin, es el mayor de BTS. Nació el 4 de diciembre de 1992 en Gwacheon, Corea del Sur. Es conocido por su extraordinario sentido del humor y su apodo 'Worldwide Handsome'. Fue reclutado mientras era estudiante de actuación.",
+    "imagen": "jin.jpg"
+  },
+  {
+    "id": 3,
+    "nombre_real": "Min Yoongi",
+    "personaje": "Suga / Agust D",
+    "Altura": 174,
+    "Peso": 59,
+    "Poderes": "Producción musical genial, Rap introspectivo, Valentía artística",
+    "Sexo": "M",
+    "Debilidad": "El frío extremo y los espacios sociales muy largos",
+    "Creacion": "2013-06-13",
+    "Biografia": "Min Yoongi, conocido como Suga o Agust D en su faceta como solista, nació el 9 de marzo de 1993 en Daegu, Corea del Sur. Comenzó a rapear a los 13 años. Es conocido por sus letras profundamente personales que abordan temas de salud mental y ambición.",
+    "imagen": "suga5.jpg"
+  },
+  {
+    "id": 4,
+    "nombre_real": "Jung Hoseok",
+    "personaje": "J-Hope (Your hope, Our hope)",
+    "Altura": 177,
+    "Peso": 65,
+    "Poderes": "Danza contemporánea, Rap energético, Positividad infinita",
+    "Sexo": "M",
+    "Debilidad": "Las serpientes y los sustos inesperados",
+    "Creacion": "2013-06-13",
+    "Biografia": "Jung Hoseok, conocido como J-Hope, nació el 18 de febrero de 1994 en Gwangju, Corea del Sur. Comenzó su carrera como bailarín callejero. Es el director de danza de BTS y uno de sus raperos principales, reconocido mundialmente por su energía contagiosa en el escenario.",
+    "imagen": "hoseok4.jpg"
+  },
+  {
+    "id": 5,
+    "nombre_real": "Park Jimin",
+    "personaje": "Jimin (Mochi)",
+    "Altura": 173,
+    "Peso": 61,
+    "Poderes": "Danza contemporánea perfecta, Voz falsete único, Expresividad emocional",
+    "Sexo": "M",
+    "Debilidad": "Su incapacidad para decir que no a los demás",
+    "Creacion": "2013-06-13",
+    "Biografia": "Park Jimin, nació el 13 de octubre de 1995 en Busan, Corea del Sur. Se graduó con honores en la escuela de artes de Busan. Es el primer bailarín y uno de los vocalistas principales de BTS. Sus presentaciones en solitario son reconocidas por su intensidad emocional y fluidez técnica.",
+    "imagen": "jim.jpg"
+  },
+  {
+    "id": 6,
+    "nombre_real": "Kim Taehyung",
+    "personaje": "V (Vante / TaeTae)",
+    "Altura": 179,
+    "Peso": 68,
+    "Poderes": "Voz barítono profunda, Arte visual y fotografía, Carisma magnético",
+    "Sexo": "M",
+    "Debilidad": "Los perros (los ama demasiado, es una distracción total)",
+    "Creacion": "2013-06-13",
+    "Biografia": "Kim Taehyung, conocido como V, nació el 30 de diciembre de 1995 en Daegu, Corea del Sur. Es vocalista principal de BTS y también es fotógrafo aficionado bajo el alias 'Vante'. Es conocido por su voz excepcionalmente grave y su sentido estético muy particular.",
+    "imagen": "tae1.jpg"
+  },
+  {
+    "id": 7,
+    "nombre_real": "Jeon Jungkook",
+    "personaje": "Jungkook (Golden Maknae)",
+    "Altura": 178,
+    "Peso": 66,
+    "Poderes": "Canto, Baile, Boxeo, Dibujo, Videojuegos — Multitalento absoluto",
+    "Sexo": "M",
+    "Debilidad": "Las cámaras que aparecen inesperadamente cuando come",
+    "Creacion": "2013-06-13",
+    "Biografia": "Jeon Jungkook, conocido como el 'Golden Maknae' (el menor dorado), nació el 1 de septiembre de 1997 en Busan, Corea del Sur. Es el miembro más joven de BTS y fue el más solicitado por diferentes agencias de entretenimiento antes de unirse a HYBE. Es vocalista, bailarín y rapero, capaz de sobresalir en todo lo que intenta.",
+    "imagen": "jungkook2.jpg"
+  }
+]

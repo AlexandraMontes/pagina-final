@@ -1,0 +1,65 @@
+[
+  {
+    "personajeID": 1,
+    "nombre_personaje": "Spider-Man",
+    "alias": "Peter Parker",
+    "fechacreacion": "1962-08-10",
+    "descripcion": "Un joven fotógrafo del Daily Bugle mordido por una araña radioactiva que adquirió poderes arácnidos. Lucha por el bien de Nueva York.",
+    "comic_titulo": "Amazing Fantasy #15",
+    "nombre_poder": "Lanzar telarañas"
+  },
+  {
+    "personajeID": 1,
+    "nombre_personaje": "Spider-Man",
+    "alias": "Peter Parker",
+    "fechacreacion": "1962-08-10",
+    "descripcion": "Un joven fotógrafo del Daily Bugle mordido por una araña radioactiva que adquirió poderes arácnidos. Lucha por el bien de Nueva York.",
+    "comic_titulo": "The Amazing Spider-Man #1",
+    "nombre_poder": "Sentido Arácnido"
+  },
+  {
+    "personajeID": 2,
+    "nombre_personaje": "Iron Man",
+    "alias": "Tony Stark",
+    "fechacreacion": "1963-03-01",
+    "descripcion": "Genio, millonario, playboy, filántropo y fundador de Stark Industries. Construyó una armadura de alta tecnología para escapar del cautiverio y convertirse en Iron Man.",
+    "comic_titulo": "Tales of Suspense #39",
+    "nombre_poder": "Armadura Iron Man Mark LXXXV"
+  },
+  {
+    "personajeID": 2,
+    "nombre_personaje": "Iron Man",
+    "alias": "Tony Stark",
+    "fechacreacion": "1963-03-01",
+    "descripcion": "Genio, millonario, playboy, filántropo y fundador de Stark Industries. Construyó una armadura de alta tecnología para escapar del cautiverio y convertirse en Iron Man.",
+    "comic_titulo": "Invincible Iron Man #1",
+    "nombre_poder": "Inteligencia Estratégica Suprema"
+  },
+  {
+    "personajeID": 3,
+    "nombre_personaje": "Thor",
+    "alias": "Odinson",
+    "fechacreacion": "1962-11-01",
+    "descripcion": "Dios del trueno de Asgard, hijo de Odín. Empuña el martillo Mjolnir. Defiende tanto a los Nueve Reinos como a la Tierra.",
+    "comic_titulo": "Journey into Mystery #83",
+    "nombre_poder": "Control del Trueno y los Rayos"
+  },
+  {
+    "personajeID": 4,
+    "nombre_personaje": "Black Widow",
+    "alias": "Natasha Romanoff",
+    "fechacreacion": "1964-04-01",
+    "descripcion": "Ex-agente de la KGB convertida en agente de S.H.I.E.L.D. Maestra del combate cuerpo a cuerpo y el espionaje. Sin superpoderes, pero con entrenamiento inigualable.",
+    "comic_titulo": "Tales of Suspense #52",
+    "nombre_poder": "Pulseras Viuda (descarga eléctrica)"
+  },
+  {
+    "personajeID": 5,
+    "nombre_personaje": "Captain America",
+    "alias": "Steve Rogers",
+    "fechacreacion": "1941-03-01",
+    "descripcion": "Soldado de la Segunda Guerra Mundial potenciado con el suero del supersoldado. Símbolo de esperanza y virtud. Líder de los Vengadores.",
+    "comic_titulo": "Captain America Comics #1",
+    "nombre_poder": "Escudo de Vibranium"
+  }
+]

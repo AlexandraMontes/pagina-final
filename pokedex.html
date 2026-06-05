@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+
+    <link rel="stylesheet" href="Css/pokedex.css">
+</head>
+
+<body>
+
+    <a href="index.html" class="inicio-btn">
+        ⬅ Volver al Inicio
+    </a>
+
+    <h1>MAESTRO POKEMON: ALEXANDRA MONTES</h1>
+
+    <img src="img/eeve.png" width="280">
+
+    <input
+        type="text"
+        placeholder="Eevee"
+        id="pokeName"
+        name="pokeName"
+        class="placeholder">
+
+    <br>
+
+    <img
+        src="img/cynthia.jpg"
+        alt="Pokemon"
+        id="pokeImg"
+        width="250"
+        class="pokeimg">
+
+    <br>
+
+    <!-- Información del Pokémon -->
+
+    <div id="pokename" class="pokeimg1"></div>
+
+    <div id="pokeHe" class="pokeimg1"></div>
+
+    <div id="pokeWe" class="pokeimg1"></div>
+
+    <div id="pokeType" class="pokeimg1"></div>
+
+    <div id="pokeitem" class="pokeimg1"></div>
+
+    <div id="pokemove1" class="pokeimg1"></div>
+
+    <div id="pokemove2" class="pokeimg1"></div>
+
+    <div id="pokemove3" class="pokeimg1"></div>
+
+    <div id="pokemove4" class="pokeimg1"></div>
+
+    <div id="pokeid" class="pokeimg1"></div>
+
+    <div id="pokeorder" class="pokeimg1"></div>
+
+    <!-- Botón -->
+
+   <button onclick="fetchPokemon()" class="boton">
+    Buscar Pokémon
+</button>
+
+    <!-- Gráfica -->
+
+    <div class="grafica">
+        <canvas id="miCanvas"></canvas>
+    </div>
+
+    <!-- Galería de Pokémon -->
+
+    <h2 style="text-align:center; color:white; margin-top:40px;">
+        Pokémon Disponibles
+    </h2>
+
+    <div id="pokemonContainer" class="pokemon-container"></div>
+
+    <!-- Chart.js -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JavaScript -->
+
+    <script src="pokedex.js"></script>
+
+</body>
+
+</html>

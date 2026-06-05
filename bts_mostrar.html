@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unidad 1: Catálogo BTS | Proyecto Final API</title>
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="Css/style.css">
+    <style>
+        .bio-cell { max-width: 220px; }
+        .bio-short, .bio-full { line-height:1.5; }
+        .ver-mas {
+            color: #a78bfa; cursor: pointer; font-weight: bold;
+            text-decoration: underline; font-size: 0.85em; white-space: nowrap;
+        }
+        .personaje-img {
+            width: 48px; height: 48px; object-fit: cover;
+            border-radius: 50%; border: 2px solid rgba(139,92,246,0.4);
+        }
+        .personaje-img-placeholder {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+            display:inline-flex; align-items:center; justify-content:center;
+            font-size:20px; color:white; border: 2px solid rgba(139,92,246,0.4);
+        }
+        .badge-manual {
+            background: rgba(16,185,129,0.2); color:#34d399;
+            font-size:10px; padding:2px 7px; border-radius:8px;
+            border:1px solid rgba(52,211,153,0.3);
+        }
+        .badge-json {
+            background: rgba(59,130,246,0.2); color:#60a5fa;
+            font-size:10px; padding:2px 7px; border-radius:8px;
+            border:1px solid rgba(96,165,250,0.3);
+        }
+    </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">Inicio</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Unidad 1 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="bts_meter_datos.html">Práctica 1: Meter Datos (BTS)</a></li>
+                    <li><a href="bts_mostrar.html">Práctica 2: Mostrar Datos (BTS)</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Unidad 2 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="marvel_relaciones.html">Práctica 1: Relaciones Marvel</a></li>
+                    <li><a href="cine_relaciones.html">Práctica 2: Relaciones Cine</a></li>
+                    <li><a href="practica2.html">Práctica 3: Tablero Kanban</a></li>
+                    <li><a href="capturar_relacionados.html">Práctica 4: Pasar Datos Relacionados</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Unidad 3 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="pokedex.html">Pokémon</a></li>
+                    <li><a href="peliculas.html">Películas</a></li>
+                    <li><a href="Viajes.html">Viajes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container principal">
+    <div class="glass-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; margin-bottom:20px;">
+            <div>
+                <h2 class="panel-title" style="margin:0 0 5px 0;">Unidad 1 - Práctica 2: Catálogo BTS</h2>
+                <p style="color:#94a3b8; margin:0; font-size:14px;">
+                    Equivalente a: <code style="color:#60a5fa;">SELECT * FROM bts</code> — Datos cargados desde
+                    <span class="badge-json">📄 data/bts.json</span> + registros de
+                    <span class="badge-manual">💾 localStorage</span>
+                </p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <a href="bts_meter_datos.html" class="btn-card" style="width:auto; padding:9px 18px; font-size:13px; text-decoration:none;">
+                    + Agregar Personaje
+                </a>
+                <button onclick="borrarExtras()" class="btn-action btn-danger-custom" id="btnBorrar">
+                    Borrar Extras
+                </button>
+            </div>
+        </div>
+
+        <!-- Buscador -->
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="buscador" onkeyup="filtrar()" placeholder="🔍 Buscar por nombre, alias, poderes...">
+            </div>
+            <div class="col-md-4">
+                <select class="form-control" id="filtroFuente" onchange="filtrar()">
+                    <option value="todos">Mostrar todos los registros</option>
+                    <option value="json">Solo registros del JSON (base)</option>
+                    <option value="manual">Solo registros manuales (localStorage)</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="alertContainer"></div>
+
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="custom-table" id="tablaBts">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Foto</th>
+                        <th>Nombre Real</th>
+                        <th>Personaje</th>
+                        <th>Alt</th>
+                        <th>Peso</th>
+                        <th>Poderes</th>
+                        <th>Sexo</th>
+                        <th>Debilidad</th>
+                        <th>Biografía</th>
+                        <th>Fuente</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+        <div id="noData" style="display:none; text-align:center; padding:30px; color:#94a3b8;">
+            No se encontraron registros.
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Proyecto Final de APIs. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    // ============================================================
+    // EQUIVALENCIA SQL:
+    //   mostrar.php hacía SELECT * FROM bts usando mysqli
+    //   Aquí usamos fetch() para leer data/bts.json (base)
+    //   y mergeamos con localStorage (registros manuales)
+    // ============================================================
+
+    let todosLosPersonajes = [];
+
+    // Cargar JSON base (equivale a la tabla bts preexistente)
+    // y fusionar con los registros manuales del localStorage
+    async function cargarDatos() {
+        let jsonBase = [];
+        try {
+            const resp = await fetch("data/bts.json");
+            jsonBase = await resp.json();
+            // Marcar como fuente "json"
+            jsonBase = jsonBase.map(p => ({ ...p, fuente: "json" }));
+        } catch (e) {
+            console.warn("No se pudo cargar bts.json:", e);
+        }
+
+        // Registros guardados manualmente en localStorage
+        const extras = JSON.parse(localStorage.getItem("bts-personajes-extra")) || [];
+
+        // Merge: JSON base primero, luego los extras (como un UNION en SQL)
+        todosLosPersonajes = [...jsonBase, ...extras];
+
+        // Actualizar visibilidad del botón borrar
+        document.getElementById("btnBorrar").style.display = extras.length > 0 ? "inline-block" : "none";
+
+        renderTabla(todosLosPersonajes);
+    }
+
+    function renderTabla(personajes) {
+        const tbody = document.getElementById("tbody");
+        const noData = document.getElementById("noData");
+
+        if (personajes.length === 0) {
+            tbody.innerHTML = "";
+            noData.style.display = "block";
+            return;
+        }
+        noData.style.display = "none";
+
+        tbody.innerHTML = personajes.map(p => {
+            // Lógica de toggle para biografía larga (igual que en mostrar.php)
+            let bioHtml = p.Biografia || "Sin biografía";
+            if (bioHtml.length > 80) {
+                const corta = bioHtml.substring(0, 80);
+                bioHtml = `
+                    <span class="bio-short">${corta}... <span class="ver-mas" onclick="toggleBio(this)">más</span></span>
+                    <span class="bio-full" style="display:none;">${bioHtml} <span class="ver-mas" onclick="toggleBio(this)">menos</span></span>
+                `;
+            }
+
+            // Imagen
+            const imgHtml = p.imagen
+                ? `<img class="personaje-img" src="${p.imagen}" alt="${p.nombre_real}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'"><span class="personaje-img-placeholder" style="display:none;">👤</span>`
+                : `<span class="personaje-img-placeholder">👤</span>`;
+
+            // Badge de fuente
+            const badge = p.fuente === "json"
+                ? `<span class="badge-json">📄 JSON</span>`
+                : `<span class="badge-manual">💾 Local</span>`;
+
+            // Botón eliminar solo para registros manuales
+            const btnEliminar = p.fuente !== "json"
+                ? `<button onclick="eliminar(${p.id})" class="btn-action btn-danger-custom" style="padding:5px 10px;font-size:11px;">✕</button>`
+                : `<span style="color:#475569; font-size:11px;">Fijo</span>`;
+
+            return `
+                <tr data-fuente="${p.fuente}" data-search="${(p.nombre_real+" "+p.personaje+" "+p.Poderes+" "+p.Debilidad).toLowerCase()}">
+                    <td style="color:#94a3b8; font-size:12px;">${p.id}</td>
+                    <td>${imgHtml}</td>
+                    <td style="font-weight:600; color:#fff;">${p.nombre_real}</td>
+                    <td style="color:#c084fc;">${p.personaje}</td>
+                    <td>${p.Altura} cm</td>
+                    <td>${p.Peso} kg</td>
+                    <td style="max-width:180px; font-size:13px;">${p.Poderes}</td>
+                    <td>${p.Sexo}</td>
+                    <td style="max-width:150px; font-size:13px;">${p.Debilidad}</td>
+                    <td class="bio-cell">${bioHtml}</td>
+                    <td>${badge}</td>
+                    <td>${btnEliminar}</td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    // Filtro combinado: buscador de texto + filtro de fuente
+    function filtrar() {
+        const query = document.getElementById("buscador").value.toLowerCase();
+        const fuente = document.getElementById("filtroFuente").value;
+
+        let filtrados = todosLosPersonajes.filter(p => {
+            const texto = `${p.nombre_real} ${p.personaje} ${p.Poderes} ${p.Debilidad}`.toLowerCase();
+            const coincideTexto = texto.includes(query);
+            const coincideFuente = fuente === "todos" || p.fuente === fuente;
+            return coincideTexto && coincideFuente;
+        });
+
+        renderTabla(filtrados);
+    }
+
+    // Toggle biofrafía (idéntico al JS de mostrar.php)
+    function toggleBio(el) {
+        const parent = el.parentElement;
+        const short = parent.parentElement.querySelector(".bio-short");
+        const full  = parent.parentElement.querySelector(".bio-full");
+        if (short.style.display === "none") {
+            short.style.display = "inline"; full.style.display = "none";
+        } else {
+            short.style.display = "none"; full.style.display = "inline";
+        }
+    }
+
+    // Eliminar registro manual (localStorage)
+    function eliminar(id) {
+        if (!confirm("¿Eliminar este personaje del almacenamiento local?")) return;
+        let extras = JSON.parse(localStorage.getItem("bts-personajes-extra")) || [];
+        extras = extras.filter(p => p.id !== id);
+        localStorage.setItem("bts-personajes-extra", JSON.stringify(extras));
+        cargarDatos();
+    }
+
+    // Borrar TODOS los extras del localStorage (los de JSON permanecen)
+    function borrarExtras() {
+        if (!confirm("⚠️ ¿Borrar todos los personajes agregados manualmente? Los datos del JSON base no se tocarán.")) return;
+        localStorage.removeItem("bts-personajes-extra");
+        cargarDatos();
+    }
+
+    // Iniciar
+    cargarDatos();
+</script>
+</body>
+</html>
